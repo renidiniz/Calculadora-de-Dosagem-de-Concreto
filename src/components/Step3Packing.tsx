@@ -136,33 +136,33 @@ export const Step3Packing: React.FC = () => {
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
       <div>
-        <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">3. Empacotamento de Agregados</h2>
-        <p className="text-slate-500 text-sm mt-1">
+        <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">3. Empacotamento de Agregados</h2>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
           A planilha calcula o índice de vazios mínimo em uma cascata sequencial de misturas. Preencha as pesagens dos recipientes para as etapas ativas de agregados.
         </p>
       </div>
 
       {/* Recipiente */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs">
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Volume do Recipiente Metálico (L)</label>
+          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 mb-1 uppercase tracking-wider">Volume do Recipiente Metálico (L)</label>
           <input
             type="number"
             min="0.1"
             step="0.1"
-            className="w-full border border-slate-200 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white"
+            className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
             value={volRecipiente}
             onChange={(e) => setVolRecipiente(Number(e.target.value))}
           />
-          <span className="text-[10px] text-slate-400 mt-1.5 block">Típico: caixa de 25 x 25 x 25 cm = 15.625 L (ABNT NBR NM 45).</span>
+          <span className="text-[10px] text-slate-450 mt-1.5 block">Típico: caixa de 25 x 25 x 25 cm = 15.625 L (ABNT NBR NM 45).</span>
         </div>
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Peso do Recipiente Vazio (kg)</label>
+          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 mb-1 uppercase tracking-wider">Peso do Recipiente Vazio (kg)</label>
           <input
             type="number"
             min="0"
             step="0.001"
-            className="w-full border border-slate-200 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white"
+            className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
             value={pesoVazioRecipiente}
             onChange={(e) => setPesoVazioRecipiente(Number(e.target.value))}
           />
@@ -171,7 +171,7 @@ export const Step3Packing: React.FC = () => {
 
       {/* Se não houver tabelas ativas */}
       {activeTables.length === 0 ? (
-        <div className="bg-amber-50/50 border border-amber-100 rounded-xl p-4 text-amber-850 text-xs">
+        <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 rounded-xl p-4 text-amber-850 dark:text-amber-300 text-xs">
           ⚠️ Não há ensaios de empacotamento ativos. Ative pelo menos dois agregados no Passo 1 para realizar os ensaios de mistura.
         </div>
       ) : (
@@ -185,7 +185,7 @@ export const Step3Packing: React.FC = () => {
                 className={`px-4 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
                   activeTableId === t.id
                     ? 'bg-indigo-600 border-indigo-600 text-white'
-                    : 'border-slate-200 hover:border-slate-350 text-slate-650 bg-white hover:text-slate-800'
+                    : 'border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 text-slate-650 dark:text-slate-300 bg-white dark:bg-slate-900 hover:text-slate-800 dark:hover:text-slate-100'
                 }`}
               >
                 Etapa {idx + 1}: {t.compAName.split(' ')[0]} / {t.compBName.split(' ')[0]}
@@ -195,23 +195,23 @@ export const Step3Packing: React.FC = () => {
 
           {/* Render Active Table */}
           {currentTable && (
-            <div className="bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs space-y-6">
+            <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs space-y-6">
               <div>
-                <h3 className="font-extrabold text-slate-800 text-sm uppercase tracking-tight">{currentTable.title}</h3>
-                <p className="text-[10px] text-slate-400 font-semibold mt-1">
-                  Densidades de Cálculo: {currentTable.compAName} = <strong className="text-slate-600">{densities.densA.toFixed(0)} kg/m³</strong> | {currentTable.compBName} = <strong className="text-slate-600">{densities.densB.toFixed(0)} kg/m³</strong>.
+                <h3 className="font-extrabold text-slate-800 dark:text-slate-200 text-sm uppercase tracking-tight">{currentTable.title}</h3>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-1">
+                  Densidades de Cálculo: {currentTable.compAName} = <strong className="text-slate-600 dark:text-slate-300">{densities.densA.toFixed(0)} kg/m³</strong> | {currentTable.compBName} = <strong className="text-slate-600 dark:text-slate-300">{densities.densB.toFixed(0)} kg/m³</strong>.
                 </p>
               </div>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200 bg-slate-50/70 text-slate-500 uppercase font-bold tracking-wider">
+                    <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">
                       <th className="py-2.5 px-3 font-bold text-center text-[10px]">{currentTable.compAName} (%)</th>
                       <th className="py-2.5 px-3 text-center font-bold text-[10px]">{currentTable.compBName} (%)</th>
                       <th className="py-2.5 px-3 text-right font-bold text-[10px]">Peso Cheio (kg)</th>
-                      <th className="py-2.5 px-3 text-right font-bold text-[10px]">Massa Unitária (kg/L)</th>
-                      <th className="py-2.5 px-3 text-right font-bold text-[10px]">Massa Unitária (kg/m³)</th>
+                      <th className="py-2.5 px-3 text-right font-bold text-[10px]">Massa Utária (kg/L)</th>
+                      <th className="py-2.5 px-3 text-right font-bold text-[10px]">Massa Utária (kg/m³)</th>
                       <th className="py-2.5 px-3 text-right font-bold text-[10px]">Índice de Vazios (%)</th>
                       <th className="py-2.5 px-3 text-center font-bold text-[10px]">Status</th>
                     </tr>
@@ -223,33 +223,33 @@ export const Step3Packing: React.FC = () => {
                       return (
                         <tr
                           key={idx}
-                          className={`border-b border-slate-100 transition-colors ${
-                            isOpt ? 'bg-emerald-50/30 border-l-4 border-l-emerald-500 font-bold' : 'hover:bg-slate-50/30'
+                          className={`border-b border-slate-100 dark:border-slate-800/60 transition-colors ${
+                            isOpt ? 'bg-emerald-50/20 dark:bg-emerald-950/15 border-l-4 border-l-emerald-500 font-bold' : 'hover:bg-slate-50/30 dark:hover:bg-slate-800/20'
                           }`}
                         >
-                          <td className="py-2.5 px-3 text-center font-semibold text-slate-700">{row.propA}%</td>
-                          <td className="py-2.5 px-3 text-center font-semibold text-slate-700">{row.propB}%</td>
+                          <td className="py-2.5 px-3 text-center font-semibold text-slate-700 dark:text-slate-300">{row.propA}%</td>
+                          <td className="py-2.5 px-3 text-center font-semibold text-slate-700 dark:text-slate-300">{row.propB}%</td>
                           <td className="py-2.5 px-3 text-right">
                             <input
                               type="number"
                               step="0.001"
-                              className="w-28 border border-slate-200 px-2.5 py-1 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white text-right"
+                              className="w-28 border border-slate-200 dark:border-slate-800 px-2.5 py-1 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-955 text-right text-slate-800 dark:text-slate-100"
                               value={row.pesoCheio}
                               onChange={(e) => handleWeightChange(currentTable.id, idx, Number(e.target.value))}
                             />
                           </td>
-                          <td className="py-2.5 px-3 text-right font-mono text-[11px] text-slate-500">{calcs.unitWt}</td>
-                          <td className="py-2.5 px-3 text-right font-mono text-[11px] text-slate-500">{calcs.unitWtKgM3}</td>
-                          <td className={`py-2.5 px-3 text-right font-mono text-xs font-semibold ${isOpt ? 'text-emerald-700' : 'text-slate-700'}`}>
+                          <td className="py-2.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{calcs.unitWt}</td>
+                          <td className="py-2.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{calcs.unitWtKgM3}</td>
+                          <td className={`py-2.5 px-3 text-right font-mono text-xs font-semibold ${isOpt ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'}`}>
                             {calcs.voids}%
                           </td>
                           <td className="py-2.5 px-3 text-center">
                             {isOpt ? (
-                              <span className="inline-flex items-center gap-0.5 bg-emerald-100/70 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded-md">
+                              <span className="inline-flex items-center gap-0.5 bg-emerald-100/70 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold px-2.5 py-0.5 rounded-md">
                                 Ótimo ({row.propA}/{row.propB})
                               </span>
                             ) : (
-                              <span className="text-[10px] text-slate-400">Ok</span>
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500">Ok</span>
                             )}
                           </td>
                         </tr>
@@ -260,60 +260,60 @@ export const Step3Packing: React.FC = () => {
               </div>
 
               {/* Resumo da Etapa */}
-              <div className="bg-slate-50/50 p-5 rounded-xl border border-slate-100 grid grid-cols-3 gap-4 text-center">
+              <div className="bg-slate-50/50 dark:bg-slate-950/20 p-5 rounded-xl border border-slate-100 dark:border-slate-800 grid grid-cols-3 gap-4 text-center transition-colors">
                 <div>
-                  <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Proporção Ótima</span>
-                  <span className="text-base font-extrabold text-slate-800">
+                  <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Proporção Ótima</span>
+                  <span className="text-base font-extrabold text-slate-800 dark:text-slate-200">
                     {currentTable.optimalPropA}% / {currentTable.optimalPropB}%
                   </span>
                 </div>
                 <div>
-                  <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Densidade da Mescla</span>
-                  <span className="text-base font-extrabold text-slate-800 font-mono">{currentTable.optimalDensity.toFixed(0)} kg/m³</span>
+                  <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Densidade da Mescla</span>
+                  <span className="text-base font-extrabold text-slate-800 dark:text-slate-200 font-mono">{currentTable.optimalDensity.toFixed(0)} kg/m³</span>
                 </div>
                 <div>
-                  <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Vazios Mínimos</span>
-                  <span className="text-base font-extrabold text-emerald-600 font-mono">{currentTable.optimalVoids.toFixed(2)}%</span>
+                  <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider">Vazios Mínimos</span>
+                  <span className="text-base font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">{currentTable.optimalVoids.toFixed(2)}%</span>
                 </div>
               </div>
             </div>
           )}
 
           {/* Frações Finais dos Agregados */}
-          <div className="bg-slate-900 text-white p-6 md:p-8 rounded-2xl space-y-6 shadow-sm">
+          <div className="bg-slate-900 dark:bg-slate-905 text-white p-6 md:p-8 rounded-2xl space-y-6 shadow-sm border border-transparent dark:border-slate-800">
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-300">Frações Secas Finais dos Agregados Ótimos</h4>
-              <p className="text-[10px] text-slate-400 font-semibold mt-1">Calculados em cascata a partir das proporções de menor índice de vazios de cada ensaio.</p>
+              <p className="text-[10px] text-slate-450 font-semibold mt-1">Calculados em cascata a partir das proporções de menor índice de vazios de cada ensaio.</p>
             </div>
             
             <div className="grid grid-cols-2 sm:grid-cols-6 gap-4 text-center">
-              <div className="bg-slate-800/60 p-4 rounded-xl border border-slate-800">
-                <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Brita 2</span>
+              <div className="bg-slate-800/60 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-800 dark:border-slate-850">
+                <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Brita 2</span>
                 <span className="text-base font-extrabold font-mono mt-1 block">{(finalFractions.brita2 * 100).toFixed(1)}%</span>
               </div>
-              <div className="bg-slate-800/60 p-4 rounded-xl border border-slate-800">
-                <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Brita 1</span>
+              <div className="bg-slate-800/60 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-800 dark:border-slate-850">
+                <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Brita 1</span>
                 <span className="text-base font-extrabold font-mono mt-1 block">{(finalFractions.brita1 * 100).toFixed(1)}%</span>
               </div>
-              <div className="bg-slate-800/60 p-4 rounded-xl border border-slate-800">
-                <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Brita 0</span>
+              <div className="bg-slate-800/60 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-800 dark:border-slate-850">
+                <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Brita 0</span>
                 <span className="text-base font-extrabold font-mono mt-1 block">{(finalFractions.brita0 * 100).toFixed(1)}%</span>
               </div>
-              <div className="bg-slate-800/60 p-4 rounded-xl border border-slate-800">
-                <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Areia Grossa</span>
+              <div className="bg-slate-800/60 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-800 dark:border-slate-850">
+                <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Areia Grossa</span>
                 <span className="text-base font-extrabold font-mono mt-1 block">{(finalFractions.areiaGrossa * 100).toFixed(1)}%</span>
               </div>
-              <div className="bg-slate-800/60 p-4 rounded-xl border border-slate-800">
-                <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Areia Média</span>
+              <div className="bg-slate-800/60 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-800 dark:border-slate-850">
+                <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Areia Média</span>
                 <span className="text-base font-extrabold font-mono mt-1 block">{(finalFractions.areiaMedia * 100).toFixed(1)}%</span>
               </div>
-              <div className="bg-slate-800/60 p-4 rounded-xl border border-slate-800">
-                <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Areia Fina</span>
+              <div className="bg-slate-800/60 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-800 dark:border-slate-850">
+                <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Areia Fina</span>
                 <span className="text-base font-extrabold font-mono mt-1 block">{(finalFractions.areiaFina * 100).toFixed(1)}%</span>
               </div>
             </div>
             
-            <div className="text-[10px] text-slate-400 border-t border-slate-850 pt-4 flex items-center gap-1.5 justify-center font-semibold">
+            <div className="text-[10px] text-slate-400 dark:text-slate-500 border-t border-slate-850 pt-4 flex items-center gap-1.5 justify-center font-semibold">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
               A soma das frações é exatamente 100% da massa seca dos agregados.
             </div>
@@ -322,10 +322,10 @@ export const Step3Packing: React.FC = () => {
       )}
 
       {/* Botões de Navegação */}
-      <div className="flex justify-between pt-4 border-t border-slate-200">
+      <div className="flex justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
         <button
           onClick={() => setStep(2)}
-          className="flex items-center gap-1.5 border border-slate-200 hover:border-slate-350 px-5 py-2.5 rounded-lg text-slate-700 hover:text-slate-900 font-semibold text-xs transition-all bg-white cursor-pointer"
+          className="flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 px-5 py-2.5 rounded-lg text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all bg-white dark:bg-slate-900 cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" /> Voltar para Granulometria
         </button>

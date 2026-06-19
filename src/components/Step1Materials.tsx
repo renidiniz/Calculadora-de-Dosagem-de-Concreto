@@ -36,25 +36,25 @@ export const Step1Materials: React.FC = () => {
     isOptional = false
   ) => {
     return (
-      <tr className={`border-b border-slate-100 hover:bg-slate-50/40 transition-colors ${!mat.active && isOptional ? 'opacity-35' : ''}`}>
+      <tr className={`border-b border-slate-100 dark:border-slate-800/70 hover:bg-slate-50/40 dark:hover:bg-slate-800/30 transition-colors ${!mat.active && isOptional ? 'opacity-35' : ''}`}>
         <td className="py-3.5 px-4">
           <div className="flex items-center gap-3">
             {isOptional && (
               <input
                 type="checkbox"
-                className="w-4.5 h-4.5 border-slate-200 rounded text-indigo-600 focus:ring-indigo-100 transition-all cursor-pointer"
+                className="w-4.5 h-4.5 border-slate-200 dark:border-slate-700 rounded text-indigo-600 focus:ring-indigo-100 dark:focus:ring-indigo-950/40 transition-all cursor-pointer bg-white dark:bg-slate-950"
                 checked={mat.active}
                 onChange={(e) => handleMaterialChange(mat, setMat, 'active', e.target.checked)}
               />
             )}
-            <span className="font-semibold text-slate-800 text-sm">{mat.nome}</span>
+            <span className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{mat.nome}</span>
           </div>
         </td>
         <td className="py-3.5 px-4">
           <input
             type="number"
             disabled={!mat.active}
-            className="w-36 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white disabled:bg-slate-50 disabled:text-slate-400"
+            className="w-36 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 disabled:bg-slate-50 dark:disabled:bg-slate-900/60 disabled:text-slate-400 dark:disabled:text-slate-600"
             value={mat.massaEspec}
             onChange={(e) => handleMaterialChange(mat, setMat, 'massaEspec', Number(e.target.value))}
           />
@@ -64,7 +64,7 @@ export const Step1Materials: React.FC = () => {
             type="number"
             step="0.001"
             disabled={!mat.active}
-            className="w-36 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white disabled:bg-slate-50 disabled:text-slate-400"
+            className="w-36 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 disabled:bg-slate-50 dark:disabled:bg-slate-900/60 disabled:text-slate-400 dark:disabled:text-slate-600"
             value={mat.custo}
             onChange={(e) => handleMaterialChange(mat, setMat, 'custo', Number(e.target.value))}
           />
@@ -94,18 +94,18 @@ export const Step1Materials: React.FC = () => {
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
       <div>
-        <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">1. Cadastro de Materiais</h2>
-        <p className="text-slate-500 text-sm mt-1">
+        <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">1. Cadastro de Materiais</h2>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
           Defina as propriedades físicas (Massa Específica em kg/m³) e comerciais (Custo Unitário em R$/kg) de cada componente da dosagem.
         </p>
       </div>
 
-      <div className="bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs">
-        <h3 className="text-xs font-bold text-slate-500 border-b border-slate-100 pb-3 mb-4 uppercase tracking-wider">Tabela de Agregados e Aglomerantes</h3>
+      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs">
+        <h3 className="text-xs font-bold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-3 mb-4 uppercase tracking-wider">Tabela de Agregados e Aglomerantes</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/70 text-slate-500 uppercase font-bold tracking-wider">
+              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">
                 <th className="py-3 px-4 font-bold text-[10px]">Material</th>
                 <th className="py-3 px-4 font-bold text-[10px]">Massa Específica (kg/m³)</th>
                 <th className="py-3 px-4 font-bold text-[10px]">Custo Unitário (R$/kg)</th>
@@ -115,15 +115,15 @@ export const Step1Materials: React.FC = () => {
               {renderMaterialRow(cimento, setCimento)}
               {renderMaterialRow(agua, setAgua)}
               
-              <tr className="bg-slate-50/40 border-y border-slate-100">
-                <td colSpan={3} className="py-2.5 px-4 text-[9px] font-bold text-slate-400 uppercase tracking-widest">Agregados Graúdos (Britas)</td>
+              <tr className="bg-slate-50/40 dark:bg-slate-950/20 border-y border-slate-100 dark:border-slate-800">
+                <td colSpan={3} className="py-2.5 px-4 text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Agregados Graúdos (Britas)</td>
               </tr>
               {renderMaterialRow(brita2, setBrita2, true)}
               {renderMaterialRow(brita1, setBrita1, true)}
               {renderMaterialRow(brita0, setBrita0, true)}
 
-              <tr className="bg-slate-50/40 border-y border-slate-100">
-                <td colSpan={3} className="py-2.5 px-4 text-[9px] font-bold text-slate-400 uppercase tracking-widest">Agregados Miúdos (Areias)</td>
+              <tr className="bg-slate-50/40 dark:bg-slate-950/20 border-y border-slate-100 dark:border-slate-800">
+                <td colSpan={3} className="py-2.5 px-4 text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Agregados Miúdos (Areias)</td>
               </tr>
               {renderMaterialRow(areiaGrossa, setAreiaGrossa, true)}
               {renderMaterialRow(areiaMedia, setAreiaMedia, true)}
@@ -134,11 +134,11 @@ export const Step1Materials: React.FC = () => {
       </div>
 
       {/* ADITIVO QUÍMICO */}
-      <div className="bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs">
+        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
           <div className="flex items-center gap-2">
-            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Aditivo Químico</h3>
-            <span className="text-[10px] text-slate-400 font-semibold">(Plastificante / Superplastificante)</span>
+            <h3 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Aditivo Químico</h3>
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold">(Plastificante / Superplastificante)</span>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -147,47 +147,47 @@ export const Step1Materials: React.FC = () => {
               checked={aditivo.ativo}
               onChange={(e) => handleAditChange('ativo', e.target.checked)}
             />
-            <div className="w-9 h-5 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
-            <span className="ml-2 text-xs font-bold text-slate-500">{aditivo.ativo ? 'Ativo' : 'Inativo'}</span>
+            <div className="w-9 h-5 bg-slate-200 dark:bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+            <span className="ml-2 text-xs font-bold text-slate-500 dark:text-slate-450">{aditivo.ativo ? 'Ativo' : 'Inativo'}</span>
           </label>
         </div>
 
         {aditivo.ativo && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-5 p-5 bg-slate-50/40 rounded-xl border border-slate-100">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5 p-5 bg-slate-50/40 dark:bg-slate-950/20 rounded-xl border border-slate-100 dark:border-slate-800/80">
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Nome do Aditivo</label>
+              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Nome do Aditivo</label>
               <input
                 type="text"
-                className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all"
+                className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                 value={aditivo.nome}
                 onChange={(e) => handleAditChange('nome', e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Massa Específica (kg/m³)</label>
+              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Massa Específica (kg/m³)</label>
               <input
                 type="number"
-                className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all text-right font-mono"
+                className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-right font-mono text-slate-800 dark:text-slate-100"
                 value={aditivo.massaEspec}
                 onChange={(e) => handleAditChange('massaEspec', Number(e.target.value))}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Custo Unitário (R$/kg)</label>
+              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Custo Unitário (R$/kg)</label>
               <input
                 type="number"
                 step="0.01"
-                className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all text-right font-mono"
+                className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-right font-mono text-slate-800 dark:text-slate-100"
                 value={aditivo.custo}
                 onChange={(e) => handleAditChange('custo', Number(e.target.value))}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Dosagem Padrão (% Cimento)</label>
+              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Dosagem Padrão (% Cimento)</label>
               <input
                 type="number"
                 step="0.1"
-                className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all text-right font-mono"
+                className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-right font-mono text-slate-800 dark:text-slate-100"
                 value={aditivo.dosagemPadrao}
                 onChange={(e) => handleAditChange('dosagemPadrao', Number(e.target.value))}
               />
@@ -197,7 +197,7 @@ export const Step1Materials: React.FC = () => {
       </div>
 
       {!isFormValid() && (
-        <div className="flex items-start gap-3 border border-amber-100 bg-amber-50/50 rounded-xl p-4 text-amber-800">
+        <div className="flex items-start gap-3 border border-amber-100 bg-amber-50/50 dark:border-amber-900/30 dark:bg-amber-950/20 rounded-xl p-4 text-amber-800 dark:text-amber-300">
           <span className="text-xs font-bold">
             ⚠️ Configuração Inválida: Certifique-se de ativar pelo menos uma Areia e uma Brita. Os valores de Massa Específica devem ser maiores que zero.
           </span>

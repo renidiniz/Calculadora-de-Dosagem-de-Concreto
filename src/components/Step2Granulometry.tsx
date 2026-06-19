@@ -155,20 +155,20 @@ export const Step2Granulometry: React.FC = () => {
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
       <div>
-        <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">2. Composição Granulométrica</h2>
-        <p className="text-slate-500 text-sm mt-1">
+        <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">2. Composição Granulométrica</h2>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
           Informe a massa retida em cada peneira para calibrar as curvas granulométricas individuais de cada material.
         </p>
       </div>
 
       {/* Tabs Principais */}
-      <div className="flex border border-slate-200/50 p-1 bg-slate-100/50 rounded-xl max-w-sm">
+      <div className="flex border border-slate-200/50 dark:border-slate-800 p-1 bg-slate-100/50 dark:bg-slate-900 rounded-xl max-w-sm transition-colors duration-200">
         <button
           onClick={() => { setActiveTab('areia'); setActiveSubTab(getActiveSands()[0]?.id || 'mescla'); }}
           className={`flex-1 text-center py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
             activeTab === 'areia'
-              ? 'bg-white text-indigo-600 shadow-xs border border-slate-250/20'
-              : 'text-slate-500 hover:text-slate-800'
+              ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs border border-slate-250/20 dark:border-slate-700'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           Areias (Agregado Miúdo)
@@ -177,8 +177,8 @@ export const Step2Granulometry: React.FC = () => {
           onClick={() => { setActiveTab('brita'); setActiveSubTab(getActiveGravels()[0]?.id || 'mescla'); }}
           className={`flex-1 text-center py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
             activeTab === 'brita'
-              ? 'bg-white text-indigo-600 shadow-xs border border-slate-250/20'
-              : 'text-slate-500 hover:text-slate-800'
+              ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs border border-slate-250/20 dark:border-slate-700'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           Britas (Agregado Graúdo)
@@ -187,17 +187,17 @@ export const Step2Granulometry: React.FC = () => {
 
       {/* Proporções da Mescla Granulométrica */}
       {currentList.length > 1 && (
-        <div className="bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs">
-          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Definição de Proporções da Mistura (%)</h4>
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs">
+          <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Definição de Proporções da Mistura (%)</h4>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 items-end">
             {activeTab === 'areia' ? (
               <>
                 {areiaGrossa.active && (
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Areia Grossa (%)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Areia Grossa (%)</label>
                     <input
                       type="number"
-                      className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all"
+                      className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                       value={propSands.grossa}
                       onChange={(e) => handlePropChange('grossa', Number(e.target.value))}
                     />
@@ -205,10 +205,10 @@ export const Step2Granulometry: React.FC = () => {
                 )}
                 {areiaMedia.active && (
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Areia Média (%)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Areia Média (%)</label>
                     <input
                       type="number"
-                      className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all"
+                      className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                       value={propSands.media}
                       onChange={(e) => handlePropChange('media', Number(e.target.value))}
                     />
@@ -216,10 +216,10 @@ export const Step2Granulometry: React.FC = () => {
                 )}
                 {areiaFina.active && (
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Areia Fina (%)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Areia Fina (%)</label>
                     <input
                       type="number"
-                      className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all"
+                      className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                       value={propSands.fina}
                       onChange={(e) => handlePropChange('fina', Number(e.target.value))}
                     />
@@ -230,10 +230,10 @@ export const Step2Granulometry: React.FC = () => {
               <>
                 {brita2.active && (
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Brita 2 (%)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Brita 2 (%)</label>
                     <input
                       type="number"
-                      className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all"
+                      className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                       value={propGravels.brita2}
                       onChange={(e) => handlePropChange('brita2', Number(e.target.value))}
                     />
@@ -241,10 +241,10 @@ export const Step2Granulometry: React.FC = () => {
                 )}
                 {brita1.active && (
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Brita 1 (%)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Brita 1 (%)</label>
                     <input
                       type="number"
-                      className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all"
+                      className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                       value={propGravels.brita1}
                       onChange={(e) => handlePropChange('brita1', Number(e.target.value))}
                     />
@@ -252,10 +252,10 @@ export const Step2Granulometry: React.FC = () => {
                 )}
                 {brita0.active && (
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Brita 0 (%)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Brita 0 (%)</label>
                     <input
                       type="number"
-                      className="w-full border border-slate-200 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all"
+                      className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 px-3 py-1.5 rounded-lg text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                       value={propGravels.brita0}
                       onChange={(e) => handlePropChange('brita0', Number(e.target.value))}
                     />
@@ -264,8 +264,8 @@ export const Step2Granulometry: React.FC = () => {
               </>
             )}
             <div className="flex flex-col justify-end">
-              <div className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Soma das Proporções:</div>
-              <div className={`text-sm font-bold ${isPropValid ? 'text-emerald-600' : 'text-red-500'}`}>
+              <div className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Soma das Proporções:</div>
+              <div className={`text-sm font-bold ${isPropValid ? 'text-emerald-650' : 'text-red-500'}`}>
                 {propSum.toFixed(1)}% {isPropValid ? '✓' : '(Deve somar exatamente 100%)'}
               </div>
             </div>
@@ -282,7 +282,7 @@ export const Step2Granulometry: React.FC = () => {
             className={`px-4 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
               activeSubTab === item.id
                 ? 'bg-indigo-600 border-indigo-600 text-white'
-                : 'border-slate-200 hover:border-slate-350 text-slate-600 bg-white hover:text-slate-800'
+                : 'border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 hover:text-slate-850 dark:hover:text-slate-100'
             }`}
           >
             {item.label}
@@ -294,7 +294,7 @@ export const Step2Granulometry: React.FC = () => {
             className={`px-4 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
               activeSubTab === 'mescla'
                 ? 'bg-indigo-600 border-indigo-600 text-white'
-                : 'border-slate-200 hover:border-slate-350 text-slate-650 bg-white hover:text-slate-800'
+                : 'border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 text-slate-650 dark:text-slate-300 bg-white dark:bg-slate-900 hover:text-slate-800 dark:hover:text-slate-100'
             }`}
           >
             Curva da Mescla
@@ -306,13 +306,13 @@ export const Step2Granulometry: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Tabela de Peneiras */}
-        <div className="lg:col-span-6 bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
-              <h4 className="font-bold text-slate-800 uppercase text-xs tracking-wider">
+            <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
+              <h4 className="font-bold text-slate-800 dark:text-slate-200 uppercase text-xs tracking-wider">
                 {activeSubTab === 'mescla' ? 'Mescla Calculada' : `Peneiras: ${currentList.find(c=>c.id === activeSubTab)?.label}`}
               </h4>
-              <div className="text-[9px] text-slate-400 font-mono uppercase tracking-wider">
+              <div className="text-[9px] text-slate-400 dark:text-slate-550 font-mono uppercase tracking-wider">
                 SÉRIE ABNT NBR NM ISO 3310-1
               </div>
             </div>
@@ -320,7 +320,7 @@ export const Step2Granulometry: React.FC = () => {
             <div className="max-h-[500px] overflow-y-auto pr-1">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50/70 text-slate-500 uppercase font-bold tracking-wider">
+                  <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">
                     <th className="py-2.5 px-3 font-bold text-[10px]">Abertura (mm)</th>
                     <th className="py-2.5 px-3 text-right font-bold text-[10px]">Retida (g)</th>
                     <th className="py-2.5 px-3 text-right font-bold text-[10px]">Acumulada (%)</th>
@@ -334,18 +334,18 @@ export const Step2Granulometry: React.FC = () => {
                     const hasData = currentCalcs && !currentCalcs.isMescla && currentCalcs.state;
                     
                     return (
-                      <tr key={key} className={`border-b border-slate-100 hover:bg-slate-50/30 transition-colors ${isNormal ? 'font-semibold bg-slate-50/15' : 'text-slate-500'}`}>
-                        <td className="py-2 px-3 text-slate-700 font-semibold">
+                      <tr key={key} className={`border-b border-slate-100 dark:border-slate-800/60 hover:bg-slate-50/30 dark:hover:bg-slate-800/30 transition-colors ${isNormal ? 'font-semibold bg-slate-50/15 dark:bg-slate-950/10' : 'text-slate-500 dark:text-slate-450'}`}>
+                        <td className="py-2 px-3 text-slate-700 dark:text-slate-300 font-semibold">
                           {sieve.label}
                         </td>
                         <td className="py-2 px-3 text-right">
                           {activeSubTab === 'mescla' ? (
-                            <span className="text-slate-300">-</span>
+                            <span className="text-slate-300 dark:text-slate-700">-</span>
                           ) : (
                             <input
                               type="number"
                               min="0"
-                              className="w-24 border border-slate-200 text-right px-2.5 py-1 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white"
+                              className="w-24 border border-slate-200 dark:border-slate-800 text-right px-2.5 py-1 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100"
                               value={hasData ? (currentCalcs.state.sieveData[key] ?? 0) : 0}
                               onChange={(e) => {
                                 if (hasData && currentCalcs.setter) {
@@ -355,10 +355,10 @@ export const Step2Granulometry: React.FC = () => {
                             />
                           )}
                         </td>
-                        <td className="py-2 px-3 text-right font-mono text-[11px] text-slate-650">
+                        <td className="py-2 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">
                           {currentCalcs?.acumulada[key] ?? '0.00'}%
                         </td>
-                        <td className="py-2 px-3 text-right font-mono text-[11px] text-slate-800">
+                        <td className="py-2 px-3 text-right font-mono text-[11px] text-slate-800 dark:text-slate-200">
                           {currentCalcs?.passante[key] ?? '100.00'}%
                         </td>
                       </tr>
@@ -370,14 +370,14 @@ export const Step2Granulometry: React.FC = () => {
           </div>
 
           {/* Consolidação */}
-          <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-4 mt-4 bg-slate-50/50 rounded-xl p-4">
+          <div className="grid grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-800 pt-4 mt-4 bg-slate-50/50 dark:bg-slate-950/20 rounded-xl p-4 transition-colors">
             <div>
-              <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Módulo de Finura (MF)</span>
-              <span className="text-xl font-black text-slate-800 font-mono">{currentCalcs?.mf ?? '0.00'}</span>
+              <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Módulo de Finura (MF)</span>
+              <span className="text-xl font-black text-slate-800 dark:text-slate-200 font-mono">{currentCalcs?.mf ?? '0.00'}</span>
             </div>
             <div>
-              <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">D.M.C. (Abertura Máxima)</span>
-              <span className="text-xl font-black text-slate-800 font-mono">
+              <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">D.M.C. (Abertura Máxima)</span>
+              <span className="text-xl font-black text-slate-800 dark:text-slate-200 font-mono">
                 {currentCalcs?.dmc ? `${currentCalcs.dmc} mm` : '0 mm'}
               </span>
             </div>
@@ -385,9 +385,9 @@ export const Step2Granulometry: React.FC = () => {
         </div>
 
         {/* Gráfico */}
-        <div className="lg:col-span-6 bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs flex flex-col justify-between">
           <div>
-            <h4 className="font-bold text-slate-800 border-b border-slate-100 pb-3 mb-4 uppercase text-xs tracking-wider">
+            <h4 className="font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-3 mb-4 uppercase text-xs tracking-wider">
               Curva Granulométrica vs Normas
             </h4>
             <div className="w-full h-[360px] text-xs">
@@ -396,26 +396,31 @@ export const Step2Granulometry: React.FC = () => {
                   data={chartData}
                   margin={{ top: 10, right: 10, left: -20, bottom: 5 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
                   <XAxis 
                     dataKey="name" 
                     tickLine={false} 
-                    axisLine={{ stroke: '#e2e8f0' }}
+                    axisLine={{ stroke: 'var(--chart-text)' }}
+                    tick={{ fill: 'var(--chart-text)' }}
                   />
                   <YAxis 
                     domain={[0, 100]} 
                     tickFormatter={(v) => `${v}%`}
                     tickLine={false}
-                    axisLine={{ stroke: '#e2e8f0' }}
+                    axisLine={{ stroke: 'var(--chart-text)' }}
+                    tick={{ fill: 'var(--chart-text)' }}
                   />
-                  <Tooltip formatter={(value) => [`${value}%`]} />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: 'var(--tooltip-bg)', borderColor: 'var(--tooltip-border)', color: 'var(--tooltip-text)' }}
+                    formatter={(value) => [`${value}%`]} 
+                  />
                   <Legend verticalAlign="top" height={36} iconType="plainline" />
                   
                   {activeTab === 'areia' && (
                     <Line
                       type="monotone"
                       dataKey="Limite Superior (NBR 7211)"
-                      stroke="#cbd5e1"
+                      stroke="var(--chart-limit)"
                       strokeDasharray="4 4"
                       dot={false}
                       strokeWidth={1.5}
@@ -426,7 +431,7 @@ export const Step2Granulometry: React.FC = () => {
                     <Line
                       type="monotone"
                       dataKey="Limite Inferior (NBR 7211)"
-                      stroke="#cbd5e1"
+                      stroke="var(--chart-limit)"
                       strokeDasharray="4 4"
                       dot={false}
                       strokeWidth={1.5}
@@ -446,7 +451,7 @@ export const Step2Granulometry: React.FC = () => {
               </ResponsiveContainer>
             </div>
           </div>
-          <div className="text-xs text-slate-500 mt-4 leading-relaxed bg-slate-50/50 rounded-xl p-4 border border-slate-100/50">
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-4 leading-relaxed bg-slate-50/50 dark:bg-slate-950/20 rounded-xl p-4 border border-slate-100/50 dark:border-slate-800/80">
             {activeTab === 'areia' ? (
               <span>
                 <strong>Nota Técnica (Areia)</strong>: Os limites normativos tracejados representam a zona ótima e utilizável de agregados miúdos (ABNT NBR 7211).
@@ -462,17 +467,17 @@ export const Step2Granulometry: React.FC = () => {
       </div>
 
       {/* Botões de Navegação */}
-      <div className="flex justify-between pt-4 border-t border-slate-200">
+      <div className="flex justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
         <button
           onClick={() => setStep(1)}
-          className="flex items-center gap-1.5 border border-slate-200 hover:border-slate-350 px-5 py-2.5 rounded-lg text-slate-700 hover:text-slate-900 font-semibold text-xs transition-all bg-white cursor-pointer"
+          className="flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 px-5 py-2.5 rounded-lg text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all bg-white dark:bg-slate-900 cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" /> Voltar para Materiais
         </button>
         <button
           onClick={() => isPropValid && setStep(3)}
           disabled={!isPropValid}
-          className="bg-indigo-600 hover:bg-indigo-755 active:bg-indigo-800 text-white font-bold text-xs py-2.5 px-6 rounded-lg transition-all shadow-sm hover:-translate-y-px active:translate-y-0 disabled:opacity-45 disabled:pointer-events-none cursor-pointer uppercase tracking-wider flex items-center gap-1"
+          className="bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xs py-2.5 px-6 rounded-lg transition-all shadow-sm hover:-translate-y-px active:translate-y-0 disabled:opacity-45 disabled:pointer-events-none cursor-pointer uppercase tracking-wider flex items-center gap-1"
         >
           Avançar para Empacotamento <ChevronRight className="w-4 h-4" />
         </button>

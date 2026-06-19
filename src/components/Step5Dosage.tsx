@@ -33,11 +33,11 @@ export const Step5Dosage: React.FC = () => {
 
   if (!regression) {
     return (
-      <div className="text-center p-8 bg-amber-50 border border-amber-200 text-amber-800">
-        <AlertTriangle className="w-8 h-8 mx-auto mb-2" />
+      <div className="text-center p-8 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/30 text-amber-800 dark:text-amber-300 rounded-xl">
+        <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-amber-600 dark:text-amber-400" />
         <h3 className="font-bold">Regressão Inválida</h3>
         <p className="text-sm">Por favor, retorne ao Passo 4 e insira dados de ensaio válidos para calibrar as equações.</p>
-        <button onClick={() => setStep(4)} className="mt-4 px-4 py-2 bg-amber-800 text-white text-xs font-semibold">
+        <button onClick={() => setStep(4)} className="mt-4 px-4 py-2 bg-amber-800 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg transition-colors cursor-pointer">
           Voltar ao Passo 4
         </button>
       </div>
@@ -54,7 +54,6 @@ export const Step5Dosage: React.FC = () => {
   } = regression;
 
   // 1. Calculate water-to-cement ratio (a/c)
-  // log10(fc) = abramsIntercept + abramsSlope * ac => ac = (log10(fc) - abramsIntercept) / abramsSlope
   let acTarget = 0.50;
   let calculationError = false;
   let errorMsg = '';
@@ -74,14 +73,12 @@ export const Step5Dosage: React.FC = () => {
   }
 
   // 2. Calculate aggregate-to-cement ratio (m)
-  // m = lyseSlope * ac + lyseIntercept
   let mTarget = lyseSlope * acTarget + lyseIntercept;
   if (mTarget < 0) {
     mTarget = 0;
   }
 
   // 3. Cement Consumption (C) in kg/m³ using Molinari Equation
-  // m = molinariSlope * (1/C) + molinariIntercept => C = molinariSlope / (m - molinariIntercept)
   let C = 0;
   const molinariDiv = mTarget - molinariIntercept;
   if (molinariSlope > 0 && molinariDiv > 0) {
@@ -95,8 +92,6 @@ export const Step5Dosage: React.FC = () => {
   }
 
   // 4. Split aggregates using mortar content (alpha)
-  // a_total = alpha/100 * (1 + m) - 1
-  // p_total = m - a_total
   const aVal = Math.max(0, (alpha / 100) * (1 + mTarget) - 1);
   const pVal = Math.max(0, mTarget - aVal);
 
@@ -205,17 +200,17 @@ export const Step5Dosage: React.FC = () => {
       {/* SCREEN VIEW SECTION (no-print) */}
       <div className="no-print space-y-8">
         <div>
-          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">5. Dosagem Final e Custos</h2>
-          <p className="text-slate-500 text-sm mt-1">
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">5. Dosagem Final e Custos</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             Defina a resistência característica de projeto do concreto (f_cj) e o teor de argamassa (α). O sistema computará as relações estequiométricas exatas pelo método IPT/ABCP, consumo de materiais e custos.
           </p>
         </div>
 
         {/* Inputs de Controle e Parâmetros */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs">
           {/* Resistência Desejada */}
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-wider">
+            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1.5 uppercase tracking-wider">
               Resistência Desejada f_cj aos 28 dias (MPa)
             </label>
             <input
@@ -223,18 +218,18 @@ export const Step5Dosage: React.FC = () => {
               min="10"
               max="80"
               step="0.5"
-              className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all font-bold text-slate-800 bg-white"
+              className="w-full border border-slate-200 dark:border-slate-800 px-3 py-2 rounded-lg text-sm font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all font-bold text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-955"
               value={fcj}
               onChange={(e) => setFcj(Number(e.target.value))}
             />
-            <span className="text-[10px] text-slate-400 mt-1.5 block">
+            <span className="text-[10px] text-slate-400 dark:text-slate-550 mt-1.5 block">
               Obs: f_cj = f_ck + 1.65 * s_d (Resistência de dosagem).
             </span>
           </div>
 
           {/* Teor de Argamassa */}
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-wider">
+            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 mb-1.5 uppercase tracking-wider">
               Teor de Argamassa α (%)
             </label>
             <div className="flex gap-4 items-center">
@@ -243,7 +238,7 @@ export const Step5Dosage: React.FC = () => {
                 min="45"
                 max="65"
                 step="0.5"
-                className="w-2/3 accent-indigo-600 cursor-pointer h-2 bg-slate-100 rounded-lg appearance-none"
+                className="w-2/3 accent-indigo-600 cursor-pointer h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none"
                 value={alpha}
                 onChange={(e) => setAlpha(Number(e.target.value))}
               />
@@ -252,35 +247,35 @@ export const Step5Dosage: React.FC = () => {
                 min="40"
                 max="70"
                 step="0.1"
-                className="w-1/3 border border-slate-200 px-2 py-1.5 rounded-lg text-xs text-center font-bold text-slate-800 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white"
+                className="w-1/3 border border-slate-200 dark:border-slate-800 px-2 py-1.5 rounded-lg text-xs text-center font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-955"
                 value={alpha}
                 onChange={(e) => setAlpha(Number(e.target.value))}
               />
             </div>
-            <span className="text-[10px] text-slate-400 mt-1.5 block">
-              Proporção de Areia nos Agregados: <strong className="text-slate-700">{sandPctOfAggregates.toFixed(1)}%</strong>.
+            <span className="text-[10px] text-slate-400 dark:text-slate-550 mt-1.5 block">
+              Proporção de Areia nos Agregados: <strong className="text-slate-700 dark:text-slate-350">{sandPctOfAggregates.toFixed(1)}%</strong>.
             </span>
           </div>
 
           {/* Relações Calculadas */}
-          <div className="flex flex-col justify-center bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50">
-            <div className="flex justify-between items-center text-xs font-bold text-indigo-900">
+          <div className="flex flex-col justify-center bg-indigo-50/30 dark:bg-indigo-950/20 p-4 rounded-xl border border-indigo-100/50 dark:border-indigo-900/40 transition-colors">
+            <div className="flex justify-between items-center text-xs font-bold text-indigo-900 dark:text-indigo-200">
               <span>Relação a/c:</span>
-              <span className="font-extrabold text-indigo-600 font-mono text-sm">{acTarget.toFixed(3)}</span>
+              <span className="font-extrabold text-indigo-600 dark:text-indigo-400 font-mono text-sm">{acTarget.toFixed(3)}</span>
             </div>
-            <div className="flex justify-between items-center text-xs font-bold text-indigo-900 mt-2 border-t border-indigo-100/30 pt-2">
+            <div className="flex justify-between items-center text-xs font-bold text-indigo-900 dark:text-indigo-200 mt-2 border-t border-indigo-100/30 dark:border-indigo-900/20 pt-2">
               <span>Traço Unitário m:</span>
-              <span className="font-extrabold text-indigo-600 font-mono text-sm">1 : {mTarget.toFixed(2)}</span>
+              <span className="font-extrabold text-indigo-600 dark:text-indigo-400 font-mono text-sm">1 : {mTarget.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between items-center text-xs font-bold text-indigo-900 mt-2 border-t border-indigo-100/30 pt-2">
+            <div className="flex justify-between items-center text-xs font-bold text-indigo-900 dark:text-indigo-200 mt-2 border-t border-indigo-100/30 dark:border-indigo-900/20 pt-2">
               <span>Consumo Cimento:</span>
-              <span className="font-extrabold text-indigo-600 font-mono text-sm">{C.toFixed(1)} kg/m³</span>
+              <span className="font-extrabold text-indigo-600 dark:text-indigo-400 font-mono text-sm">{C.toFixed(1)} kg/m³</span>
             </div>
           </div>
         </div>
 
         {errorMsg && (
-          <div className={`flex items-start gap-2.5 border p-4 rounded-xl ${calculationError ? 'border-red-100 bg-red-50/50 text-red-800' : 'border-amber-100 bg-amber-50/50 text-amber-800'}`}>
+          <div className={`flex items-start gap-2.5 border p-4 rounded-xl ${calculationError ? 'border-red-100 dark:border-red-950/30 bg-red-50/50 dark:bg-red-950/10 text-red-800 dark:text-red-300' : 'border-amber-100 dark:border-amber-900/30 bg-amber-50/50 dark:bg-amber-950/10 text-amber-800 dark:text-amber-300'}`}>
             <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
             <span className="text-xs font-bold leading-relaxed">{errorMsg}</span>
           </div>
@@ -288,52 +283,52 @@ export const Step5Dosage: React.FC = () => {
 
         {/* Commercial Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white border border-slate-100 rounded-2xl p-6 flex items-center gap-4 shadow-xs hover:border-slate-200 transition-all duration-200">
-            <div className="p-3.5 bg-emerald-50 text-emerald-600 rounded-xl">
+          <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 flex items-center gap-4 shadow-xs hover:border-slate-200 transition-all duration-200">
+            <div className="p-3.5 bg-emerald-50 dark:bg-emerald-950/45 text-emerald-600 dark:text-emerald-400 rounded-xl">
               <DollarSign className="w-6 h-6" />
             </div>
             <div>
-              <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Custo do Concreto</span>
-              <span className="text-xl font-extrabold text-slate-900">R$ {costTotal.toFixed(2)} <span className="text-xs font-medium text-slate-400">/ m³</span></span>
+              <span className="block text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-wider">Custo do Concreto</span>
+              <span className="text-xl font-extrabold text-slate-900 dark:text-slate-100">R$ {costTotal.toFixed(2)} <span className="text-xs font-medium text-slate-400">/ m³</span></span>
             </div>
           </div>
 
-          <div className="bg-white border border-slate-100 rounded-2xl p-6 flex items-center gap-4 shadow-xs hover:border-slate-200 transition-all duration-200">
-            <div className="p-3.5 bg-indigo-50 text-indigo-600 rounded-xl">
+          <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 flex items-center gap-4 shadow-xs hover:border-slate-200 transition-all duration-200">
+            <div className="p-3.5 bg-indigo-50 dark:bg-indigo-950/45 text-indigo-600 dark:text-indigo-400 rounded-xl">
               <Activity className="w-6 h-6" />
             </div>
             <div>
-              <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Custo por MPa</span>
-              <span className="text-xl font-extrabold text-slate-900">R$ {costPerMPa.toFixed(2)} <span className="text-xs font-medium text-slate-400">/ MPa</span></span>
+              <span className="block text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-wider">Custo por MPa</span>
+              <span className="text-xl font-extrabold text-slate-900 dark:text-slate-100">R$ {costPerMPa.toFixed(2)} <span className="text-xs font-medium text-slate-400">/ MPa</span></span>
             </div>
           </div>
 
-          <div className="bg-white border border-slate-100 rounded-2xl p-6 flex items-center gap-4 shadow-xs hover:border-slate-200 transition-all duration-200">
-            <div className="p-3.5 bg-cyan-50 text-cyan-600 rounded-xl">
+          <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 flex items-center gap-4 shadow-xs hover:border-slate-200 transition-all duration-200">
+            <div className="p-3.5 bg-cyan-50 dark:bg-cyan-950/45 text-cyan-600 dark:text-cyan-400 rounded-xl">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Massa Fresca Estimada</span>
-              <span className="text-xl font-extrabold text-slate-900">{totalWeight1m3.toFixed(0)} <span className="text-xs font-medium text-slate-400">kg/m³</span></span>
+              <span className="block text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-wider">Massa Fresca Estimada</span>
+              <span className="text-xl font-extrabold text-slate-900 dark:text-slate-100">{totalWeight1m3.toFixed(0)} <span className="text-xs font-medium text-slate-400">kg/m³</span></span>
             </div>
           </div>
         </div>
 
         {/* Tabela de Receita do Concreto por m³ e Ajustada */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 mb-4 gap-4">
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 dark:border-slate-800 pb-4 mb-4 gap-4">
             <div>
-              <h3 className="font-extrabold text-slate-800 text-sm tracking-tight">Tabela de Dosagem (Receita do Concreto)</h3>
-              <span className="text-[10px] text-slate-450 font-medium mt-0.5 block">
-                Traço unitário em massa seca: <strong className="text-slate-700">1 : {aVal.toFixed(2)} : {pVal.toFixed(2)} : {acTarget.toFixed(2)}</strong>
+              <h3 className="font-extrabold text-slate-800 dark:text-slate-200 text-sm tracking-tight">Tabela de Dosagem (Receita do Concreto)</h3>
+              <span className="text-[10px] text-slate-450 dark:text-slate-500 font-medium mt-0.5 block">
+                Traço unitário em massa seca: <strong className="text-slate-700 dark:text-slate-350">1 : {aVal.toFixed(2)} : {pVal.toFixed(2)} : {acTarget.toFixed(2)}</strong>
               </span>
             </div>
 
             {/* Redimensionador de Escala */}
-            <div className="flex flex-wrap items-center gap-3 border border-slate-150 p-2 bg-slate-50/60 rounded-xl">
-              <span className="text-xs font-bold text-slate-500 pl-1">Escalar Traço:</span>
+            <div className="flex flex-wrap items-center gap-3 border border-slate-150 dark:border-slate-800 p-2 bg-slate-50/60 dark:bg-slate-950/40 rounded-xl transition-colors">
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 pl-1">Escalar Traço:</span>
               <select
-                className="border border-slate-200 bg-white text-xs px-3 py-1.5 rounded-lg focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all font-semibold text-slate-700 cursor-pointer"
+                className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-xs px-3 py-1.5 rounded-lg focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all font-semibold text-slate-750 dark:text-slate-305 cursor-pointer"
                 value={dosagemTipoAjuste}
                 onChange={(e) => {
                   setDosagemTipoAjuste(e.target.value as any);
@@ -350,136 +345,136 @@ export const Step5Dosage: React.FC = () => {
                   type="number"
                   min="0.1"
                   step={dosagemTipoAjuste === 'saco' ? '0.5' : '10'}
-                  className="w-20 border border-slate-200 bg-white px-2 py-1.5 rounded-lg text-center text-xs focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all font-bold text-slate-800"
+                  className="w-20 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-2 py-1.5 rounded-lg text-center text-xs focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all font-bold text-slate-800 dark:text-slate-100"
                   value={dosagemVolumeAjustado}
                   onChange={(e) => setDosagemVolumeAjustado(Number(e.target.value))}
                 />
               )}
-              {dosagemTipoAjuste === 'betoneira' && <span className="text-xs font-bold text-slate-500">Litros</span>}
-              {dosagemTipoAjuste === 'saco' && <span className="text-xs font-bold text-slate-500">Sacos</span>}
+              {dosagemTipoAjuste === 'betoneira' && <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Litros</span>}
+              {dosagemTipoAjuste === 'saco' && <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Sacos</span>}
             </div>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50/70 text-slate-500 uppercase font-bold tracking-wider">
+                <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-955/40 text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">
                   <th className="py-3 px-3 font-bold text-[10px]">Material</th>
                   <th className="py-3 px-3 text-right font-bold text-[10px]">Densidade (kg/m³)</th>
                   <th className="py-3 px-3 text-right font-bold text-[10px]">Proporção Seca (Massa)</th>
                   <th className="py-3 px-3 text-right font-bold text-[10px]">Massa para 1 m³ (kg)</th>
-                  <th className="py-3 px-3 text-right font-bold text-[10px] text-slate-850 bg-slate-50/30">Massa Escalonada ({adjustedLabel}) (kg)</th>
+                  <th className="py-3 px-3 text-right font-bold text-[10px] text-slate-850 dark:text-slate-250 bg-slate-50/30 dark:bg-slate-950/20">Massa Escalonada ({adjustedLabel}) (kg)</th>
                   <th className="py-3 px-3 text-right font-bold text-[10px]">Custo Unitário</th>
                   <th className="py-3 px-3 text-right font-bold text-[10px]">Custo / m³</th>
-                  <th className="py-3 px-3 text-right font-bold text-[10px] text-emerald-800 bg-emerald-55/5">Custo Escalonado</th>
+                  <th className="py-3 px-3 text-right font-bold text-[10px] text-emerald-800 dark:text-emerald-400 bg-emerald-55/5 dark:bg-emerald-950/10">Custo Escalonado</th>
                 </tr>
               </thead>
               <tbody>
                 {/* CIMENTO */}
-                <tr className="border-b border-slate-100 hover:bg-slate-50/40 transition-colors font-medium">
-                  <td className="py-3.5 px-3 font-semibold text-slate-800">{cimento.nome}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{cimento.massaEspec}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">1.000</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">{W_C.toFixed(1)}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-900 bg-slate-50/30">
+                <tr className="border-b border-slate-100 dark:border-slate-850 hover:bg-slate-50/40 dark:hover:bg-slate-800/30 transition-colors font-medium">
+                  <td className="py-3.5 px-3 font-semibold text-slate-800 dark:text-slate-200">{cimento.nome}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{cimento.massaEspec}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">1.000</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">{W_C.toFixed(1)}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-900 dark:text-slate-100 bg-slate-50/30 dark:bg-slate-950/20">
                     {(W_C * scaleFactor).toFixed(1)}
                   </td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">R$ {cimento.custo.toFixed(3)} /kg</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">R$ {costCimento.toFixed(2)}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 font-bold bg-emerald-50/10">
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">R$ {cimento.custo.toFixed(3)} /kg</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">R$ {costCimento.toFixed(2)}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-50/10 dark:bg-emerald-950/10">
                     R$ {(costCimento * scaleFactor).toFixed(2)}
                   </td>
                 </tr>
 
                 {/* AREIAS */}
                 {activeSands.map((s, idx) => (
-                  <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50/40 transition-colors">
-                    <td className="py-3.5 px-3 pl-6 text-slate-700 font-semibold">
+                  <tr key={idx} className="border-b border-slate-100 dark:border-slate-850 hover:bg-slate-50/40 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-3.5 px-3 pl-6 text-slate-700 dark:text-slate-300 font-semibold">
                       <span className="text-slate-350 mr-1.5 font-normal">↳</span>
                       <span>{s.name}</span>
-                      <span className="text-[10px] text-slate-400 font-bold ml-1.5">({s.pct.toFixed(1)}% das areias)</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold ml-1.5">({s.pct.toFixed(1)}% das areias)</span>
                     </td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{s.specGrav}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{s.ratio.toFixed(3)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">{s.weight.toFixed(1)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-800 bg-slate-50/30">
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{s.specGrav}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{s.ratio.toFixed(3)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">{s.weight.toFixed(1)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-800 dark:text-slate-100 bg-slate-50/30 dark:bg-slate-950/20">
                       {(s.weight * scaleFactor).toFixed(1)}
                     </td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">R$ {s.unitCost.toFixed(3)} /kg</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">R$ {s.cost.toFixed(2)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 font-semibold bg-emerald-50/10">R$ {(s.cost * scaleFactor).toFixed(2)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">R$ {s.unitCost.toFixed(3)} /kg</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">R$ {s.cost.toFixed(2)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold bg-emerald-50/10 dark:bg-emerald-950/10">R$ {(s.cost * scaleFactor).toFixed(2)}</td>
                   </tr>
                 ))}
 
                 {/* BRITAS */}
                 {activeGravels.map((g, idx) => (
-                  <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50/40 transition-colors">
-                    <td className="py-3.5 px-3 pl-6 text-slate-700 font-semibold">
+                  <tr key={idx} className="border-b border-slate-100 dark:border-slate-850 hover:bg-slate-50/40 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-3.5 px-3 pl-6 text-slate-700 dark:text-slate-300 font-semibold">
                       <span className="text-slate-355 mr-1.5 font-normal">↳</span>
                       <span>{g.name}</span>
-                      <span className="text-[10px] text-slate-400 font-bold ml-1.5">({g.pct.toFixed(1)}% das britas)</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold ml-1.5">({g.pct.toFixed(1)}% das britas)</span>
                     </td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{g.specGrav}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{g.ratio.toFixed(3)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">{g.weight.toFixed(1)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-800 bg-slate-50/30">
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{g.specGrav}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{g.ratio.toFixed(3)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">{g.weight.toFixed(1)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-800 dark:text-slate-100 bg-slate-50/30 dark:bg-slate-950/20">
                       {(g.weight * scaleFactor).toFixed(1)}
                     </td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">R$ {g.unitCost.toFixed(3)} /kg</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">R$ {g.cost.toFixed(2)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 font-semibold bg-emerald-50/10">R$ {(g.cost * scaleFactor).toFixed(2)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">R$ {g.unitCost.toFixed(3)} /kg</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">R$ {g.cost.toFixed(2)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold bg-emerald-50/10 dark:bg-emerald-950/10">R$ {(g.cost * scaleFactor).toFixed(2)}</td>
                   </tr>
                 ))}
 
                 {/* ADITIVO */}
                 {aditivo.ativo && (
-                  <tr className="border-b border-slate-100 hover:bg-slate-50/40 transition-colors">
-                    <td className="py-3.5 px-3 text-slate-800 font-semibold">
+                  <tr className="border-b border-slate-100 dark:border-slate-850 hover:bg-slate-50/40 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-3.5 px-3 text-slate-800 dark:text-slate-200 font-semibold">
                       {aditivo.nome}
-                      <span className="text-[10px] text-slate-400 font-bold ml-1.5">({aditivo.dosagemPadrao}%)</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold ml-1.5">({aditivo.dosagemPadrao}%)</span>
                     </td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{aditivo.massaEspec}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{ratioAditivo.toFixed(3)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">{W_Ad.toFixed(2)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-800 bg-slate-50/30">
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{aditivo.massaEspec}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{ratioAditivo.toFixed(3)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">{W_Ad.toFixed(2)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-800 dark:text-slate-100 bg-slate-50/30 dark:bg-slate-950/20">
                       {(W_Ad * scaleFactor).toFixed(2)}
                     </td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">R$ {aditivo.custo.toFixed(3)} /kg</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">R$ {costAd.toFixed(2)}</td>
-                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 font-semibold bg-emerald-50/10">R$ {(costAd * scaleFactor).toFixed(2)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">R$ {aditivo.custo.toFixed(3)} /kg</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">R$ {costAd.toFixed(2)}</td>
+                    <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold bg-emerald-50/10 dark:bg-emerald-950/10">R$ {(costAd * scaleFactor).toFixed(2)}</td>
                   </tr>
                 )}
 
                 {/* ÁGUA */}
-                <tr className="border-b border-slate-200 hover:bg-slate-50/40 transition-colors font-medium">
-                  <td className="py-3.5 px-3 font-semibold text-slate-800">{agua.nome}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{agua.massaEspec}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">{acTarget.toFixed(3)}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600">{W_W.toFixed(1)}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-900 bg-slate-50/30">
+                <tr className="border-b border-slate-200 dark:border-slate-800 hover:bg-slate-50/40 dark:hover:bg-slate-800/30 transition-colors font-medium">
+                  <td className="py-3.5 px-3 font-semibold text-slate-800 dark:text-slate-200">{agua.nome}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{agua.massaEspec}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">{acTarget.toFixed(3)}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-600 dark:text-slate-400">{W_W.toFixed(1)}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-xs font-bold text-slate-900 dark:text-slate-100 bg-slate-50/30 dark:bg-slate-950/20">
                     {(W_W * scaleFactor).toFixed(1)}
                   </td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500">R$ {agua.custo.toFixed(3)} /kg</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-650">R$ {costAgua.toFixed(2)}</td>
-                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 font-bold bg-emerald-50/10">R$ {(costAgua * scaleFactor).toFixed(2)}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-500 dark:text-slate-400">R$ {agua.custo.toFixed(3)} /kg</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-slate-650 dark:text-slate-400">R$ {costAgua.toFixed(2)}</td>
+                  <td className="py-3.5 px-3 text-right font-mono text-[11px] text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-50/10 dark:bg-emerald-950/10">R$ {(costAgua * scaleFactor).toFixed(2)}</td>
                 </tr>
 
                 {/* LINHA DE TOTAIS */}
-                <tr className="bg-slate-55/70 font-bold border-t border-slate-300">
-                  <td className="py-4 px-3 uppercase text-slate-600 text-[10px] tracking-wider" colSpan={3}>Massa Total Estimada / Custo Total</td>
-                  <td className="py-4 px-3 text-right font-mono text-xs text-slate-700">
+                <tr className="bg-slate-55/70 dark:bg-slate-950/30 font-bold border-t border-slate-300 dark:border-slate-800">
+                  <td className="py-4 px-3 uppercase text-slate-600 dark:text-slate-400 text-[10px] tracking-wider" colSpan={3}>Massa Total Estimada / Custo Total</td>
+                  <td className="py-4 px-3 text-right font-mono text-xs text-slate-700 dark:text-slate-400">
                     {totalWeight1m3.toFixed(1)} kg
                   </td>
-                  <td className="py-4 px-3 text-right font-mono text-sm text-slate-900 bg-slate-100/30">
+                  <td className="py-4 px-3 text-right font-mono text-sm text-slate-900 dark:text-slate-100 bg-slate-100/30 dark:bg-slate-950/20">
                     {(totalWeight1m3 * scaleFactor).toFixed(1)} kg
                   </td>
                   <td className="py-4 px-3 text-right font-mono text-[10px] text-slate-400">
                     -
                   </td>
-                  <td className="py-4 px-3 text-right font-mono text-xs text-slate-800">
+                  <td className="py-4 px-3 text-right font-mono text-xs text-slate-800 dark:text-slate-300">
                     R$ {costTotal.toFixed(2)}
                   </td>
-                  <td className="py-4 px-3 text-right font-mono text-sm text-emerald-800 bg-emerald-50/20 font-extrabold">
+                  <td className="py-4 px-3 text-right font-mono text-sm text-emerald-800 dark:text-emerald-400 bg-emerald-50/20 dark:bg-emerald-950/20 font-extrabold">
                     R$ {(costTotal * scaleFactor).toFixed(2)}
                   </td>
                 </tr>
@@ -487,8 +482,8 @@ export const Step5Dosage: React.FC = () => {
             </table>
           </div>
 
-          <div className="mt-5 p-4 border border-emerald-100 bg-emerald-50/30 rounded-xl text-emerald-800 text-xs flex items-start gap-2.5 leading-relaxed">
-            <ShieldCheck className="w-4.5 h-4.5 text-emerald-600 flex-shrink-0 mt-0.5" />
+          <div className="mt-5 p-4 border border-emerald-100 dark:border-emerald-900/30 bg-emerald-50/30 dark:bg-emerald-950/20 rounded-xl text-emerald-800 dark:text-emerald-300 text-xs flex items-start gap-2.5 leading-relaxed transition-colors">
+            <ShieldCheck className="w-4.5 h-4.5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
             <span>
               Cálculo estequiométrico realizado pelo método <strong>IPT/ABCP</strong> com base nos volumes absolutos. Consumo de cimento de Molinari de <strong>{C.toFixed(1)} kg/m³</strong> e traço unitário seco correspondente de <strong>1 : {aVal.toFixed(2)} : {pVal.toFixed(2)}</strong>.
             </span>
@@ -496,23 +491,23 @@ export const Step5Dosage: React.FC = () => {
         </div>
 
         {/* Configurações do Relatório de Impressão */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs">
-          <h3 className="text-xs font-bold text-slate-500 border-b border-slate-100 pb-3 mb-5 uppercase tracking-wider">Exportar Memorial de Cálculo</h3>
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs">
+          <h3 className="text-xs font-bold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-3 mb-5 uppercase tracking-wider">Exportar Memorial de Cálculo</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Identificação da Obra</label>
+              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1.5 uppercase tracking-wider">Identificação da Obra</label>
               <input
                 type="text"
-                className="w-full border border-slate-200 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white text-slate-800"
+                className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                 value={nomeObra}
                 onChange={(e) => setNomeObra(e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Engenheiro Responsável</label>
+              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 mb-1.5 uppercase tracking-wider">Engenheiro Responsável</label>
               <input
                 type="text"
-                className="w-full border border-slate-200 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white text-slate-800"
+                className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
                 value={engenheiro}
                 onChange={(e) => setEngenheiro(e.target.value)}
               />
@@ -693,14 +688,14 @@ export const Step5Dosage: React.FC = () => {
       </div>
 
       {/* Botões de Navegação (no-print) */}
-      <div className="no-print flex justify-between pt-4 border-t border-slate-200">
+      <div className="no-print flex justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
         <button
           onClick={() => setStep(4)}
-          className="flex items-center gap-1.5 border border-slate-200 hover:border-slate-350 px-5 py-2.5 rounded-lg text-slate-700 hover:text-slate-900 font-semibold text-xs transition-all bg-white cursor-pointer"
+          className="flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 px-5 py-2.5 rounded-lg text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all bg-white dark:bg-slate-900 cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" /> Voltar para Regressão
         </button>
-        <span className="text-xs text-slate-400 font-semibold self-center">
+        <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold self-center">
           Dosagem calculada com sucesso pelo método ABCP/IPT.
         </span>
       </div>

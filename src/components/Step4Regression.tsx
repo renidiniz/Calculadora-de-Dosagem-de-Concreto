@@ -126,18 +126,20 @@ export const Step4Regression: React.FC = () => {
     <div className="space-y-8 max-w-6xl mx-auto">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">4. Curvas de Dosagem (Modelo Matemático)</h2>
-          <p className="text-slate-500 text-sm mt-1">
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">4. Curvas de Dosagem (Modelo Matemático)</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             Escolha o número de traços e insira as pesagens dos corpos de prova para calcular as regressões.
           </p>
         </div>
 
         {/* Toggle 3t vs 4t */}
-        <div className="flex border border-slate-200/50 p-1 bg-slate-100/50 rounded-xl">
+        <div className="flex border border-slate-200/50 dark:border-slate-800 p-1 bg-slate-100/50 dark:bg-slate-900 rounded-xl transition-colors duration-200">
           <button
             onClick={() => handleToggleMixCount(3)}
             className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-              numMixes === 3 ? 'bg-white text-indigo-600 shadow-xs border border-slate-250/20' : 'text-slate-500 hover:text-slate-800'
+              numMixes === 3
+                ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs border border-slate-250/20 dark:border-slate-700'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             3 Traços
@@ -145,7 +147,9 @@ export const Step4Regression: React.FC = () => {
           <button
             onClick={() => handleToggleMixCount(4)}
             className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-              numMixes === 4 ? 'bg-white text-indigo-600 shadow-xs border border-slate-250/20' : 'text-slate-500 hover:text-slate-800'
+              numMixes === 4
+                ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs border border-slate-250/20 dark:border-slate-700'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             4 Traços
@@ -154,25 +158,25 @@ export const Step4Regression: React.FC = () => {
       </div>
 
       {/* Dimensões dos Cilindros */}
-      <div className="bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Diâmetro dos Cilindros (cm)</label>
+          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Diâmetro dos Cilindros (cm)</label>
           <input
             type="number"
             min="5"
             max="30"
-            className="w-full border border-slate-200 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white"
+            className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
             value={cylinderDiameter}
             onChange={(e) => setCylinderDiameter(Number(e.target.value))}
           />
         </div>
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Altura dos Cilindros (cm)</label>
+          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1 uppercase tracking-wider">Altura dos Cilindros (cm)</label>
           <input
             type="number"
             min="10"
             max="60"
-            className="w-full border border-slate-200 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white"
+            className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2 rounded-lg text-xs font-semibold focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all text-slate-800 dark:text-slate-100"
             value={cylinderHeight}
             onChange={(e) => setCylinderHeight(Number(e.target.value))}
           />
@@ -183,33 +187,33 @@ export const Step4Regression: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Tabela de Pontos de Ensaio e Densidade */}
-        <div className="lg:col-span-6 bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-xs space-y-6 flex flex-col justify-between">
+        <div className="lg:col-span-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xs space-y-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <h3 className="font-bold text-slate-500 text-xs uppercase tracking-wider border-b border-slate-100 pb-3">
+            <h3 className="font-bold text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-3">
               Ensaios dos Corpos de Prova (Cilindros 10x20)
             </h3>
             
             <div className="space-y-6 overflow-y-auto max-h-[400px] pr-1">
               {activePoints.map((mix, idx) => (
-                <div key={idx} className="border border-slate-100 rounded-xl p-4 bg-slate-50/40 space-y-3 transition-all hover:bg-slate-50/70">
+                <div key={idx} className="border border-slate-100 dark:border-slate-800/80 rounded-xl p-4 bg-slate-50/40 dark:bg-slate-950/15 space-y-3 transition-all hover:bg-slate-50/70 dark:hover:bg-slate-950/30">
                   <div className="flex justify-between items-center">
-                    <span className="font-extrabold text-slate-800 text-xs">Traço {idx + 1} ({idx === 0 ? 'Rico' : idx === numMixes - 1 ? 'Pobre' : 'Interm'})</span>
-                    <div className="flex gap-4 text-[10px] text-slate-400 font-bold">
-                      <span>a/c: <strong className="text-slate-700">{mix.ac}</strong></span>
-                      <span>m: <strong className="text-slate-700">{mix.m}</strong></span>
-                      <span>fc: <strong className="text-slate-700">{mix.fc} MPa</strong></span>
+                    <span className="font-extrabold text-slate-800 dark:text-slate-200 text-xs">Traço {idx + 1} ({idx === 0 ? 'Rico' : idx === numMixes - 1 ? 'Pobre' : 'Interm'})</span>
+                    <div className="flex gap-4 text-[10px] text-slate-400 dark:text-slate-500 font-bold">
+                      <span>a/c: <strong className="text-slate-700 dark:text-slate-350">{mix.ac}</strong></span>
+                      <span>m: <strong className="text-slate-700 dark:text-slate-350">{mix.m}</strong></span>
+                      <span>fc: <strong className="text-slate-700 dark:text-slate-350">{mix.fc} MPa</strong></span>
                     </div>
                   </div>
                   
                   {/* Inputs */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[9px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Cilindro 1 (Vazio / Cheio) (kg)</label>
+                      <label className="block text-[9px] font-bold text-slate-455 dark:text-slate-500 mb-1 uppercase tracking-wider">Cilindro 1 (Vazio / Cheio) (kg)</label>
                       <div className="flex gap-2">
                         <input
                           type="number"
                           step="0.01"
-                          className="w-1/2 border border-slate-200 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 transition-all bg-white"
+                          className="w-1/2 border border-slate-200 dark:border-slate-800 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 transition-all bg-white dark:bg-slate-955 text-slate-800 dark:text-slate-100"
                           placeholder="Vazio"
                           value={mix.cyl1.pVazio}
                           onChange={(e) => handleCylChange(idx, 1, 'pVazio', Number(e.target.value))}
@@ -217,7 +221,7 @@ export const Step4Regression: React.FC = () => {
                         <input
                           type="number"
                           step="0.01"
-                          className="w-1/2 border border-slate-200 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 transition-all bg-white"
+                          className="w-1/2 border border-slate-200 dark:border-slate-800 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 transition-all bg-white dark:bg-slate-955 text-slate-800 dark:text-slate-100"
                           placeholder="Cheio"
                           value={mix.cyl1.pCheio}
                           onChange={(e) => handleCylChange(idx, 1, 'pCheio', Number(e.target.value))}
@@ -226,12 +230,12 @@ export const Step4Regression: React.FC = () => {
                     </div>
                     
                     <div>
-                      <label className="block text-[9px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Cilindro 2 (Vazio / Cheio) (kg)</label>
+                      <label className="block text-[9px] font-bold text-slate-455 dark:text-slate-500 mb-1 uppercase tracking-wider">Cilindro 2 (Vazio / Cheio) (kg)</label>
                       <div className="flex gap-2">
                         <input
                           type="number"
                           step="0.01"
-                          className="w-1/2 border border-slate-200 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 transition-all bg-white"
+                          className="w-1/2 border border-slate-200 dark:border-slate-800 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 transition-all bg-white dark:bg-slate-955 text-slate-800 dark:text-slate-100"
                           placeholder="Vazio"
                           value={mix.cyl2.pVazio}
                           onChange={(e) => handleCylChange(idx, 2, 'pVazio', Number(e.target.value))}
@@ -239,7 +243,7 @@ export const Step4Regression: React.FC = () => {
                         <input
                           type="number"
                           step="0.01"
-                          className="w-1/2 border border-slate-200 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 transition-all bg-white"
+                          className="w-1/2 border border-slate-200 dark:border-slate-800 px-2 py-1 rounded-md text-xs font-semibold text-right focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 transition-all bg-white dark:bg-slate-955 text-slate-800 dark:text-slate-100"
                           placeholder="Cheio"
                           value={mix.cyl2.pCheio}
                           onChange={(e) => handleCylChange(idx, 2, 'pCheio', Number(e.target.value))}
@@ -249,41 +253,41 @@ export const Step4Regression: React.FC = () => {
                   </div>
 
                   {/* Edição rápida dos coeficientes de entrada */}
-                  <div className="grid grid-cols-3 gap-2 border-t border-slate-100/70 pt-2 text-center text-[10px]">
+                  <div className="grid grid-cols-3 gap-2 border-t border-slate-100/70 dark:border-slate-850 pt-2 text-center text-[10px]">
                     <div>
-                      <label className="block text-slate-400 font-semibold">Relação a/c</label>
+                      <label className="block text-slate-400 dark:text-slate-500 font-semibold">Relação a/c</label>
                       <input
                         type="number"
                         step="0.01"
-                        className="w-20 border border-slate-250/70 px-2 py-1 rounded-md text-xs font-bold text-center mt-0.5 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white text-slate-800"
+                        className="w-20 border border-slate-250/70 dark:border-slate-800 px-2 py-1 rounded-md text-xs font-bold text-center mt-0.5 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-955 text-slate-800 dark:text-slate-100"
                         value={mix.ac}
                         onChange={(e) => handleMixChange(idx, 'ac', Number(e.target.value))}
                       />
                     </div>
                     <div>
-                      <label className="block text-slate-400 font-semibold">Traço Unitário (m)</label>
+                      <label className="block text-slate-400 dark:text-slate-500 font-semibold">Traço Unitário (m)</label>
                       <input
                         type="number"
                         step="0.1"
-                        className="w-20 border border-slate-250/70 px-2 py-1 rounded-md text-xs font-bold text-center mt-0.5 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white text-slate-800"
+                        className="w-20 border border-slate-250/70 dark:border-slate-800 px-2 py-1 rounded-md text-xs font-bold text-center mt-0.5 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-955 text-slate-800 dark:text-slate-100"
                         value={mix.m}
                         onChange={(e) => handleMixChange(idx, 'm', Number(e.target.value))}
                       />
                     </div>
                     <div>
-                      <label className="block text-slate-400 font-semibold">Resistência fc (MPa)</label>
+                      <label className="block text-slate-400 dark:text-slate-500 font-semibold">Resistência fc (MPa)</label>
                       <input
                         type="number"
-                        className="w-20 border border-slate-250/70 px-2 py-1 rounded-md text-xs font-bold text-center mt-0.5 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100 transition-all bg-white text-slate-800"
+                        className="w-20 border border-slate-250/70 dark:border-slate-800 px-2 py-1 rounded-md text-xs font-bold text-center mt-0.5 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-100 dark:focus:ring-indigo-950/45 transition-all bg-white dark:bg-slate-955 text-slate-800 dark:text-slate-100"
                         value={mix.fc}
                         onChange={(e) => handleMixChange(idx, 'fc', Number(e.target.value))}
                       />
                     </div>
                   </div>
 
-                  <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 bg-slate-50 rounded-lg p-2 px-3">
-                    <span>Massa Fresca: <strong className="text-slate-850 font-mono">{mix.calculatedDensity} kg/m³</strong></span>
-                    <span>Consumo Cimento: <strong className="text-slate-850 font-mono">{mix.calculatedC} kg/m³</strong></span>
+                  <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-450 bg-slate-50 dark:bg-slate-950/40 rounded-lg p-2 px-3">
+                    <span>Massa Fresca: <strong className="text-slate-850 dark:text-slate-300 font-mono">{mix.calculatedDensity} kg/m³</strong></span>
+                    <span>Consumo Cimento: <strong className="text-slate-850 dark:text-slate-300 font-mono">{mix.calculatedC} kg/m³</strong></span>
                   </div>
                 </div>
               ))}
@@ -291,47 +295,47 @@ export const Step4Regression: React.FC = () => {
           </div>
 
           {/* Regressões matemáticas */}
-          <div className="bg-slate-50/50 border border-slate-100 rounded-xl p-5 space-y-4">
-            <h4 className="text-xs font-bold text-slate-500 uppercase flex items-center gap-1.5 tracking-wider">
-              <ChartIcon className="w-4 h-4 text-indigo-600" /> Parâmetros de Regressão Linear
+          <div className="bg-slate-50/50 dark:bg-slate-950/20 border border-slate-100 dark:border-slate-800 rounded-xl p-5 space-y-4">
+            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase flex items-center gap-1.5 tracking-wider">
+              <ChartIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Parâmetros de Regressão Linear
             </h4>
             {regression ? (
               <div className="space-y-3.5 text-xs">
                 {/* Abrams */}
-                <div className="bg-white p-3 rounded-lg border border-slate-200/50 shadow-2xs">
-                  <div className="flex justify-between font-bold text-slate-700">
+                <div className="bg-white dark:bg-slate-950 p-3 rounded-lg border border-slate-200/50 dark:border-slate-850 shadow-2xs">
+                  <div className="flex justify-between font-bold text-slate-700 dark:text-slate-300">
                     <span>Abrams (Resistência)</span>
-                    <span className="text-slate-400 font-mono">R² = {regression.r2Abrams.toFixed(4)}</span>
+                    <span className="text-slate-400 dark:text-slate-500 font-mono">R² = {regression.r2Abrams.toFixed(4)}</span>
                   </div>
-                  <div className="font-mono text-[9px] font-bold text-indigo-700 bg-indigo-50/30 rounded-md p-2 mt-2">
+                  <div className="font-mono text-[9px] font-bold text-indigo-755 dark:text-indigo-400 bg-indigo-50/30 dark:bg-indigo-950/20 rounded-md p-2 mt-2">
                     log10(fc) = {regression.abramsIntercept.toFixed(4)} + ({regression.abramsSlope.toFixed(4)} * a/c)
                   </div>
                 </div>
 
                 {/* Lyse */}
-                <div className="bg-white p-3 rounded-lg border border-slate-200/50 shadow-2xs">
-                  <div className="flex justify-between font-bold text-slate-700">
+                <div className="bg-white dark:bg-slate-950 p-3 rounded-lg border border-slate-200/50 dark:border-slate-850 shadow-2xs">
+                  <div className="flex justify-between font-bold text-slate-700 dark:text-slate-300">
                     <span>Lyse (Agregado/Cimento)</span>
-                    <span className="text-slate-400 font-mono">R² = {regression.r2Lyse.toFixed(4)}</span>
+                    <span className="text-slate-400 dark:text-slate-500 font-mono">R² = {regression.r2Lyse.toFixed(4)}</span>
                   </div>
-                  <div className="font-mono text-[9px] font-bold text-indigo-700 bg-indigo-50/30 rounded-md p-2 mt-2">
+                  <div className="font-mono text-[9px] font-bold text-indigo-755 dark:text-indigo-400 bg-indigo-50/30 dark:bg-indigo-950/20 rounded-md p-2 mt-2">
                     m = {regression.lyseSlope.toFixed(4)} * a/c + ({regression.lyseIntercept.toFixed(4)})
                   </div>
                 </div>
 
                 {/* Molinari */}
-                <div className="bg-white p-3 rounded-lg border border-slate-200/50 shadow-2xs">
-                  <div className="flex justify-between font-bold text-slate-700">
+                <div className="bg-white dark:bg-slate-950 p-3 rounded-lg border border-slate-200/50 dark:border-slate-850 shadow-2xs">
+                  <div className="flex justify-between font-bold text-slate-700 dark:text-slate-300">
                     <span>Molinari (Consumo Cimento)</span>
-                    <span className="text-slate-400 font-mono">R² = {regression.r2Molinari.toFixed(4)}</span>
+                    <span className="text-slate-400 dark:text-slate-500 font-mono">R² = {regression.r2Molinari.toFixed(4)}</span>
                   </div>
-                  <div className="font-mono text-[9px] font-bold text-indigo-700 bg-indigo-50/30 rounded-md p-2 mt-2">
+                  <div className="font-mono text-[9px] font-bold text-indigo-755 dark:text-indigo-400 bg-indigo-50/30 dark:bg-indigo-950/20 rounded-md p-2 mt-2">
                     m = {regression.molinariSlope.toFixed(4)} * (1/C) + ({regression.molinariIntercept.toFixed(4)})
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="text-xs text-amber-600 bg-amber-50/50 p-3 rounded-lg border border-amber-100/60 font-semibold">
+              <div className="text-xs text-amber-600 dark:text-amber-400 bg-amber-50/50 dark:bg-amber-950/10 p-3 rounded-lg border border-amber-100/60 dark:border-amber-900/20 font-semibold">
                 Aguardando dados de ensaio...
               </div>
             )}
@@ -340,8 +344,8 @@ export const Step4Regression: React.FC = () => {
 
         {/* Gráficos */}
         <div className="lg:col-span-6 space-y-6">
-          <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-xs">
-            <h4 className="text-xs font-bold text-slate-500 mb-3 uppercase flex justify-between items-center tracking-wider">
+          <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase flex justify-between items-center tracking-wider">
               <span>Curva de Abrams (fc vs a/c)</span>
             </h4>
             <div className="w-full h-[220px] text-xs">
@@ -350,21 +354,24 @@ export const Step4Regression: React.FC = () => {
                   data={abramsData}
                   margin={{ top: 5, right: 5, left: -20, bottom: 5 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
                   <XAxis 
                     dataKey="ac" 
                     type="number" 
                     domain={['dataMin - 0.05', 'dataMax + 0.05']}
                     tickFormatter={(v) => v.toFixed(2)}
                     tickLine={false}
-                    axisLine={{ stroke: '#e2e8f0' }}
+                    axisLine={{ stroke: 'var(--chart-text)' }}
+                    tick={{ fill: 'var(--chart-text)' }}
                   />
                   <YAxis 
                     domain={[0, 'dataMax + 10']}
                     tickLine={false}
-                    axisLine={{ stroke: '#e2e8f0' }}
+                    axisLine={{ stroke: 'var(--chart-text)' }}
+                    tick={{ fill: 'var(--chart-text)' }}
                   />
                   <Tooltip 
+                    contentStyle={{ backgroundColor: 'var(--tooltip-bg)', borderColor: 'var(--tooltip-border)', color: 'var(--tooltip-text)' }}
                     formatter={(value, name, props: any) => {
                       if (props.payload.tooltipLabel) {
                         return [`${props.payload['Pontos de Ensaio']} MPa`, 'Ponto Experimental'];
@@ -396,8 +403,8 @@ export const Step4Regression: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-xs">
-            <h4 className="text-xs font-bold text-slate-500 mb-3 uppercase flex justify-between items-center tracking-wider">
+          <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase flex justify-between items-center tracking-wider">
               <span>Reta de Lyse (m vs a/c)</span>
             </h4>
             <div className="w-full h-[220px] text-xs">
@@ -406,21 +413,24 @@ export const Step4Regression: React.FC = () => {
                   data={lyseData}
                   margin={{ top: 5, right: 5, left: -20, bottom: 5 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
                   <XAxis 
                     dataKey="ac" 
                     type="number" 
                     domain={['dataMin - 0.05', 'dataMax + 0.05']}
                     tickFormatter={(v) => v.toFixed(2)}
                     tickLine={false}
-                    axisLine={{ stroke: '#e2e8f0' }}
+                    axisLine={{ stroke: 'var(--chart-text)' }}
+                    tick={{ fill: 'var(--chart-text)' }}
                   />
                   <YAxis 
                     domain={[0, 'dataMax + 2']}
                     tickLine={false}
-                    axisLine={{ stroke: '#e2e8f0' }}
+                    axisLine={{ stroke: 'var(--chart-text)' }}
+                    tick={{ fill: 'var(--chart-text)' }}
                   />
                   <Tooltip 
+                    contentStyle={{ backgroundColor: 'var(--tooltip-bg)', borderColor: 'var(--tooltip-border)', color: 'var(--tooltip-text)' }}
                     formatter={(value, name, props: any) => {
                       if (props.payload.tooltipLabel) {
                         return [props.payload['Pontos de Ensaio'], 'Ponto Experimental'];
@@ -456,17 +466,17 @@ export const Step4Regression: React.FC = () => {
       </div>
 
       {/* Botões de Navegação */}
-      <div className="flex justify-between pt-4 border-t border-slate-200">
+      <div className="flex justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
         <button
           onClick={() => setStep(3)}
-          className="flex items-center gap-1.5 border border-slate-200 hover:border-slate-350 px-5 py-2.5 rounded-lg text-slate-700 hover:text-slate-900 font-semibold text-xs transition-all bg-white cursor-pointer"
+          className="flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 px-5 py-2.5 rounded-lg text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all bg-white dark:bg-slate-900 cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" /> Voltar para Empacotamento
         </button>
         <button
           onClick={() => isValid && setStep(5)}
           disabled={!isValid}
-          className="bg-indigo-600 hover:bg-indigo-755 active:bg-indigo-800 text-white font-bold text-xs py-2.5 px-6 rounded-lg transition-all shadow-sm hover:-translate-y-px active:translate-y-0 disabled:opacity-45 disabled:pointer-events-none cursor-pointer uppercase tracking-wider flex items-center gap-1"
+          className="bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xs py-2.5 px-6 rounded-lg transition-all shadow-sm hover:-translate-y-px active:translate-y-0 disabled:opacity-45 disabled:pointer-events-none cursor-pointer uppercase tracking-wider flex items-center gap-1"
         >
           Avançar para Dosagem Final <ChevronRight className="w-4 h-4" />
         </button>
